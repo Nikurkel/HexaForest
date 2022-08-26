@@ -14,8 +14,8 @@ public class PlayerInput : MonoBehaviour
 
     // map generation prototype
     private void Start() {
-        for (int i = 0; i < 10; i++){
-            for (int j = 0; j < 10; j++){
+        for (int i = -25; i < 25; i++){
+            for (int j = -25; j < 25; j++){
                 for (int k = 0; k <= 1; k++){
                     if(Random.Range(0,k+1) == 0){
                         _map.PlaceTileOnIndex(new Vector3Int(i,j,k), ((int)TileIds.desert));
@@ -33,7 +33,7 @@ public class PlayerInput : MonoBehaviour
             
             if (Physics.Raycast(ray, out hit)) {
                 Transform objectHit = hit.transform;
-                print(objectHit.position);
+                // print(objectHit.position);
                 _map.PlaceTileOnPosition(objectHit.position, ((int)TileIds.water));
             }
         }
