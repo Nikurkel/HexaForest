@@ -6,14 +6,18 @@ public class PlayerInput : MonoBehaviour
 {
     enum TileIds {desert, water, mountain}
     public Tilemap3D _map;
+    public GameObject _camHolder;
     private Camera _cam;
 
     private void Awake() {
-        _cam = Camera.main;
+        _cam = _camHolder.GetComponentInChildren<Camera>();
     }
 
-    // map generation prototype
     private void Start() {
+        TempMapGeneration();
+    }
+
+    private void TempMapGeneration(){
         for (int i = -25; i < 25; i++){
             for (int j = -25; j < 25; j++){
                 for (int k = 0; k <= 1; k++){
@@ -27,6 +31,12 @@ public class PlayerInput : MonoBehaviour
 
     // tile placement prototype
     private void Update() {
+        PlaceTile();
+        RotateCam();
+        MoveCamera();
+    }
+
+    private void PlaceTile(){
         if(Input.GetMouseButtonDown(0)){
             RaycastHit hit;
             Ray ray = _cam.ScreenPointToRay(Input.mousePosition);
@@ -36,6 +46,33 @@ public class PlayerInput : MonoBehaviour
                 // print(objectHit.position);
                 _map.PlaceTileOnPosition(objectHit.position, ((int)TileIds.water));
             }
+        }
+    }
+
+    private void RotateCam(){
+        if(Input.GetKey(KeyCode.A)){
+            _camHolder.transform.Rotate(new Vector3(0,45 * Time.deltaTime,0));
+        }
+        if(Input.GetKey(KeyCode.D)){
+            _camHolder.transform.Rotate(new Vector3(0,-45 * Time.deltaTime,0));
+        }
+    }
+
+    private void MoveCamera(){
+        // debug only -> define in actual game before any level
+        GameObject g = _cam.gameObject;
+        if(Input.GetKey(KeyCode.W)){
+            g.transform.position += g.transform.forward * 10 * Time.deltaTime;
+        }
+        if(Input.GetKey(KeyCode.S)){
+            g.transform.position -= g.transform.forward * 10 * Time.deltaTime;
+        }
+
+        if(Input.GetKey(KeyCode.Space)){
+            g.transform.position += g.transform.up * 10 * Time.deltaTime;
+        }
+        if(Input.GetKey(KeyCode.LeftShift)){
+            g.transform.position -= g.transform.up * 10 * Time.deltaTime;
         }
     }
 }
