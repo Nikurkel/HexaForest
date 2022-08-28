@@ -13,12 +13,10 @@ public class LoadedGameData : MonoBehaviour {
         }
         else {
             gameObject.name = "File";
-        }
-    }
 
-    private void Start() {
-        DontDestroyOnLoad(gameObject);
-        LoadGame(fileID);
+            DontDestroyOnLoad(gameObject);
+            LoadGame(fileID);
+        }
     }
 
     public void SaveGame() {

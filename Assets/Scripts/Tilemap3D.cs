@@ -11,19 +11,20 @@ public class Tilemap3D : MonoBehaviour {
     public List<GameObject> _gameObjectList;
     private GameObject _container;
     private LoadedGameData _loadedGameData;
-    public bool saveMap;
 
     private void Awake() {
         _map = GetComponent<Tilemap>();
         _bounds = new BoundsInt(_offset.x,_offset.y,_offset.z,_tile3DArray.GetLength(0),_tile3DArray.GetLength(1),_tile3DArray.GetLength(2));
         _container = new GameObject("Tile Container");
-        _loadedGameData = GameObject.Find("File").GetComponent<LoadedGameData>();
         
         ResetMap();
     }
 
     private void Start() {
-        LoadTileMap();
+        _loadedGameData = GameObject.Find("File").GetComponent<LoadedGameData>();
+        if(_loadedGameData.tilemap != null){
+            LoadTileMap();
+        }
     }
 
     // Add or replace Tile3D on map
@@ -47,6 +48,7 @@ public class Tilemap3D : MonoBehaviour {
         }
 
         if(id < 0){
+            // "place" empty tile (remove)
             _tile3DArray[index.x, index.y, index.z] = new Tile3D();
             return;
         }
