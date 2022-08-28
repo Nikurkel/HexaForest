@@ -14,7 +14,7 @@ public class PlayerInput : MonoBehaviour
     }
 
     private void Start() {
-        TempMapGeneration();
+        //TempMapGeneration();
     }
 
     private void TempMapGeneration(){
@@ -34,6 +34,7 @@ public class PlayerInput : MonoBehaviour
         PlaceTile();
         RotateCam();
         MoveCamera();
+        SaveMap();
     }
 
     private void PlaceTile(){
@@ -73,6 +74,12 @@ public class PlayerInput : MonoBehaviour
         }
         if(Input.GetKey(KeyCode.LeftShift)){
             g.transform.position -= g.transform.up * 10 * Time.deltaTime;
+        }
+    }
+
+    private void SaveMap(){
+        if(Input.GetKeyDown(KeyCode.Tab)){
+            _map.SaveTileMap();
         }
     }
 }
