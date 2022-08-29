@@ -22,7 +22,11 @@ public class GameData
         for (int x = 0; x < tilemap.GetLength(0); x++){
             for (int y = 0; y < tilemap.GetLength(1); y++){
                 for (int z = 0; z < tilemap.GetLength(2); z++){
-                    tilemap[x,y,z] = 0;
+                    if(z == 0){
+                        tilemap[x,y,z] = 0;
+                    }else{
+                        tilemap[x,y,z] = -1;
+                    }
                 }
             }
         }

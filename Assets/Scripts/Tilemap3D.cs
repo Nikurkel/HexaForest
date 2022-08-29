@@ -11,6 +11,7 @@ public class Tilemap3D : MonoBehaviour {
     public List<GameObject> _gameObjectList;
     private GameObject _container;
     private LoadedGameData _loadedGameData;
+    public Tilemap GetBaseMap {get => _map;}
 
     private void Awake() {
         _map = GetComponent<Tilemap>();
@@ -76,10 +77,16 @@ public class Tilemap3D : MonoBehaviour {
         for (int x = 0; x < _tile3DArray.GetLength(0); x++){
             for (int y = 0; y < _tile3DArray.GetLength(1); y++){
                 for (int z = 0; z < _tile3DArray.GetLength(2); z++){
-                    _tile3DArray[x,y,z].model.transform.position = _map.CellToLocal(OffsetArrayToGrid(new Vector3Int(x,y,z)));
+                    if(_tile3DArray[x,y,z].model != null){
+                        _tile3DArray[x,y,z].model.transform.position = _map.CellToLocal(OffsetArrayToGrid(new Vector3Int(x,y,z)));
+                    }
                 }
             }
         }
+    }
+
+    private void Update() {
+        UpdateTilePositions();
     }
 
     public int GetTileAt(Vector3Int gridPosition){

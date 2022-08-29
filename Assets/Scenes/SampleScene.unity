@@ -309,6 +309,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1026031663}
   - component: {fileID: 1026031662}
+  - component: {fileID: 1026031664}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -323,7 +324,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1026031661}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ee98972dc29050449fdb6b3542bac62, type: 3}
   m_Name: 
@@ -344,6 +345,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1026031664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1026031661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 737d6ba2d7958a346abb5654ae166071, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _map: {fileID: 1704606764}
+  _camHolder: {fileID: 1077918156}
 --- !u!1 &1077918156
 GameObject:
   m_ObjectHideFlags: 0
@@ -402,7 +417,7 @@ Grid:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1704606760}
   m_Enabled: 1
-  m_CellSize: {x: 1, y: 1, z: 0.2}
+  m_CellSize: {x: 1, y: 1.15, z: 0.2}
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 1
   m_CellSwizzle: 1
@@ -471,8 +486,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameObjectList:
+  - {fileID: 7612352236572143535, guid: c96b6a882c653b442a2de49c055faf8d, type: 3}
+  - {fileID: 7303251682122356445, guid: c5b059b5e72666347ab9f4e172d1b29e, type: 3}
+  - {fileID: 3868168110541097136, guid: 383b52ccde1d5de428d0ba8019f48b4a, type: 3}
+  - {fileID: 1032088847220255151, guid: 0f8f3ca922999f04d9a56700ead09e1e, type: 3}
+  - {fileID: 7391912704448775511, guid: 028b99a953640f04a9484bb6d1240e46, type: 3}
+  - {fileID: 553479390542046398, guid: e00ff794dcc48cd48b40834ed4e6123f, type: 3}
   - {fileID: 6154081801644678388, guid: 24668626e3243cf4fb75046137227b0f, type: 3}
+  - {fileID: 2644346642087169425, guid: e5c16de3baaeda94daa8a44848b09cfb, type: 3}
+  - {fileID: 4102805252607874905, guid: 6f294e30bfb3c6e46830c9c520a57133, type: 3}
+  - {fileID: 4451725665354801458, guid: c3eb2a1c818bed34bab42c21a9638a01, type: 3}
+  - {fileID: 5570869782650518688, guid: 7aaab8c4c6b7f0e48be7bb3e2c1a9354, type: 3}
   - {fileID: 2921668023728184843, guid: 14cc96294321a9a4e9f9681eef969e82, type: 3}
+  - {fileID: 2459684347165136487, guid: c603341e9f55eb544a0534ace325f476, type: 3}
 --- !u!4 &812328840861386136
 Transform:
   m_ObjectHideFlags: 0
@@ -516,4 +542,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39c38ceb995a4d941a35af6290ae4c5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fileID: 1
+  fileID: 0
