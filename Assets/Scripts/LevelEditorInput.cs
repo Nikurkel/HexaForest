@@ -10,19 +10,42 @@ public class LevelEditorInput : MonoBehaviour
     private int _selectedTileID = 0;
     private int _maxTileID;
 
+    public bool _freeCam = false;
+    public float _freeCamMovementSpeed;
+    public float _freecamSensitivity = 3f;
+    public float _freeCamMaxYAngle = 80f;
+
+    Vector3 _freeCamInput;
+
+    private Vector2 _freeCamCurrentRotation;
+    private bool _freeCamLockRotation;
+
+    private Rigidbody _freeCamRB;
+
     private void Awake() {
         _cam = _camHolder.GetComponentInChildren<Camera>();
         _maxTileID = _map._gameObjectList.Count;
+        _freeCamRB = _cam.gameObject.GetComponent<Rigidbody>();
     }
 
     private void Update() {
         PlaceTile();
         PlaceTileOnTop();
         DeleteTile();
-        RotateCam();
-        MoveCamera();
+        if(_freeCam){
+            FreeCamUpdate();
+        }else{
+            RotateCam();
+            MoveCamera();
+        }
         SelectTile();
         SaveMap();
+    }
+
+    private void FixedUpdate() {
+        if(_freeCam){
+            FreeCamFixedUpdate();
+        }
     }
 
     private void PlaceTile(){
@@ -89,6 +112,67 @@ public class LevelEditorInput : MonoBehaviour
         }
     }
 
+    private void FreeCamUpdate(){
+
+        // movement input
+        _freeCamInput = new Vector3(0, 0, 0);
+
+        if (Input.GetKey(KeyCode.A))  _freeCamInput.x += -1;
+        if (Input.GetKey(KeyCode.D)) _freeCamInput.x += 1;
+        if (Input.GetKey(KeyCode.LeftShift))  _freeCamInput.y += -1;
+        if (Input.GetKey(KeyCode.Space)) _freeCamInput.y += 1;
+        if (Input.GetKey(KeyCode.W)) _freeCamInput.z += 1;
+        if (Input.GetKey(KeyCode.S)) _freeCamInput.z += -1;
+        
+        // exit
+        if (Input.GetKey(KeyCode.Escape)) Application.Quit();
+
+        // camera rotation input
+        if (!_freeCamLockRotation) {
+            _freeCamCurrentRotation.x += Input.GetAxis("Mouse X") * _freecamSensitivity * (_cam.fieldOfView / 90);
+            _freeCamCurrentRotation.y -= Input.GetAxis("Mouse Y") * _freecamSensitivity * (_cam.fieldOfView / 90);
+            _freeCamCurrentRotation.x = Mathf.Repeat(_freeCamCurrentRotation.x, 360);
+            _freeCamCurrentRotation.y = Mathf.Clamp(_freeCamCurrentRotation.y, -_freeCamMaxYAngle, _freeCamMaxYAngle);
+            _cam.transform.rotation = Quaternion.Euler(_freeCamCurrentRotation.y, _freeCamCurrentRotation.x, 0);
+        }
+
+        // speed adjustment
+        //_freeCamMovementSpeed = Mathf.Clamp(_freeCamMovementSpeed + Input.mouseScrollDelta.y, 0, 30);
+
+        // lock/release mouse cursor in Game
+        if (Input.GetKeyDown(KeyCode.LeftControl)) {
+            if (Cursor.lockState == CursorLockMode.Locked) {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                _freeCamLockRotation = true;
+            }
+            else {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                _freeCamLockRotation = false;
+            }
+        }
+    }
+
+    private void FreeCamFixedUpdate(){
+        // get forward and right direction of camera
+        Vector3 forward = _cam.transform.forward;
+        Vector3 right = _cam.transform.right;
+        Vector3 upward = new Vector3(0,1,0);
+
+        // don't change y direction to move
+        forward.y = 0f;
+        right.y = 0f;
+        forward.Normalize();
+        right.Normalize();
+
+        // get direction and speed to move:
+        Vector3 desiredMoveDirection = forward * _freeCamInput.z + right * _freeCamInput.x + upward * _freeCamInput.y;
+        desiredMoveDirection.Normalize();
+
+        _freeCamRB.velocity = desiredMoveDirection * _freeCamMovementSpeed;
+    }
+
     private void SelectTile(){
         if(Input.GetKeyDown(KeyCode.Period)){
             _selectedTileID = (int)Mathf.Repeat(_selectedTileID + 1, _maxTileID);
@@ -96,6 +180,9 @@ public class LevelEditorInput : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Comma)){
             _selectedTileID = (int)Mathf.Repeat(_selectedTileID - 1, _maxTileID);
         }
+
+        _selectedTileID = (int)Mathf.Repeat(_selectedTileID + Input.mouseScrollDelta.y, _maxTileID);
+        
     }
 
     private void SaveMap(){
