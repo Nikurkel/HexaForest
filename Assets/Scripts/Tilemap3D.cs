@@ -8,7 +8,7 @@ public class Tilemap3D : MonoBehaviour {
     private Tile3D[,,] _tile3DArray = new Tile3D[50,50,5];
     private Vector3Int _offset = new Vector3Int(-25,-25,0);
     private BoundsInt _bounds;
-    public List<GameObject> _gameObjectList;
+    public List<TileStruct> _tileStructs;
     private GameObject _container;
     private LoadedGameData _loadedGameData;
     public Tilemap GetBaseMap {get => _map;}
@@ -53,8 +53,10 @@ public class Tilemap3D : MonoBehaviour {
             _tile3DArray[index.x, index.y, index.z] = new Tile3D();
             return;
         }
-
-        GameObject obj = Instantiate(_gameObjectList[id], _map.CellToLocal(gridPosition), new Quaternion(), _container.transform);
+        int randomYRotation = Random.Range(0,6) * 60;
+        //print(randomYRotation);
+        GameObject obj = Instantiate(_tileStructs[id].GetRandomTile(), _map.CellToLocal(gridPosition), new Quaternion(), _container.transform);
+        obj.transform.Rotate(new Vector3(0,randomYRotation,0), Space.World);
         _tile3DArray[index.x, index.y, index.z] = new Tile3D(obj, id);
     }
 

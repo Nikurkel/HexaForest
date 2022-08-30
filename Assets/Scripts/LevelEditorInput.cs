@@ -24,7 +24,7 @@ public class LevelEditorInput : MonoBehaviour
 
     private void Awake() {
         _cam = _camHolder.GetComponentInChildren<Camera>();
-        _maxTileID = _map._gameObjectList.Count;
+        _maxTileID = _map._tileStructs.Count;
         _freeCamRB = _cam.gameObject.GetComponent<Rigidbody>();
     }
 

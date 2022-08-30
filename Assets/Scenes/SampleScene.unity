@@ -151,7 +151,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Color: {r: 0.8490566, g: 0.7921077, b: 0.6367924, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -162,7 +162,7 @@ Light:
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
-    m_Bias: 0
+    m_Bias: 0.01
     m_NormalBias: 0.4
     m_NearPlane: 0.2
     m_CullingMatrixOverride:
@@ -506,20 +506,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9e73a11334fa1640a19cafdecac9e5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameObjectList:
-  - {fileID: 7612352236572143535, guid: c96b6a882c653b442a2de49c055faf8d, type: 3}
-  - {fileID: 7303251682122356445, guid: c5b059b5e72666347ab9f4e172d1b29e, type: 3}
-  - {fileID: 3868168110541097136, guid: 383b52ccde1d5de428d0ba8019f48b4a, type: 3}
-  - {fileID: 1032088847220255151, guid: 0f8f3ca922999f04d9a56700ead09e1e, type: 3}
-  - {fileID: 7391912704448775511, guid: 028b99a953640f04a9484bb6d1240e46, type: 3}
-  - {fileID: 553479390542046398, guid: e00ff794dcc48cd48b40834ed4e6123f, type: 3}
-  - {fileID: 6154081801644678388, guid: 24668626e3243cf4fb75046137227b0f, type: 3}
-  - {fileID: 2644346642087169425, guid: e5c16de3baaeda94daa8a44848b09cfb, type: 3}
-  - {fileID: 4102805252607874905, guid: 6f294e30bfb3c6e46830c9c520a57133, type: 3}
-  - {fileID: 4451725665354801458, guid: c3eb2a1c818bed34bab42c21a9638a01, type: 3}
-  - {fileID: 5570869782650518688, guid: 7aaab8c4c6b7f0e48be7bb3e2c1a9354, type: 3}
-  - {fileID: 2921668023728184843, guid: 14cc96294321a9a4e9f9681eef969e82, type: 3}
-  - {fileID: 2459684347165136487, guid: c603341e9f55eb544a0534ace325f476, type: 3}
+  _tileStructs:
+  - name: sand
+    randomTile: 1
+    gameObjects:
+    - {fileID: 6154081801644678388, guid: 24668626e3243cf4fb75046137227b0f, type: 3}
+    - {fileID: 2644346642087169425, guid: e5c16de3baaeda94daa8a44848b09cfb, type: 3}
+  - name: dirt
+    randomTile: 1
+    gameObjects:
+    - {fileID: 7391912704448775511, guid: 028b99a953640f04a9484bb6d1240e46, type: 3}
+    - {fileID: 553479390542046398, guid: e00ff794dcc48cd48b40834ed4e6123f, type: 3}
+  - name: forest
+    randomTile: 1
+    gameObjects:
+    - {fileID: 5570869782650518688, guid: 7aaab8c4c6b7f0e48be7bb3e2c1a9354, type: 3}
+  - name: river
+    randomTile: 1
+    gameObjects:
+    - {fileID: 2459684347165136487, guid: c603341e9f55eb544a0534ace325f476, type: 3}
+  - name: stone
+    randomTile: 1
+    gameObjects:
+    - {fileID: 7612352236572143535, guid: c96b6a882c653b442a2de49c055faf8d, type: 3}
+    - {fileID: 7303251682122356445, guid: c5b059b5e72666347ab9f4e172d1b29e, type: 3}
+    - {fileID: 3868168110541097136, guid: 383b52ccde1d5de428d0ba8019f48b4a, type: 3}
+    - {fileID: 1032088847220255151, guid: 0f8f3ca922999f04d9a56700ead09e1e, type: 3}
+    - {fileID: 4451725665354801458, guid: c3eb2a1c818bed34bab42c21a9638a01, type: 3}
+  - name: water
+    randomTile: 1
+    gameObjects:
+    - {fileID: 2921668023728184843, guid: 14cc96294321a9a4e9f9681eef969e82, type: 3}
+  - name: grass
+    randomTile: 1
+    gameObjects:
+    - {fileID: 4102805252607874905, guid: 6f294e30bfb3c6e46830c9c520a57133, type: 3}
 --- !u!4 &812328840861386136
 Transform:
   m_ObjectHideFlags: 0
