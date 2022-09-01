@@ -327,6 +327,7 @@ GameObject:
   - component: {fileID: 1026031663}
   - component: {fileID: 1026031662}
   - component: {fileID: 1026031664}
+  - component: {fileID: 1026031665}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -380,6 +381,19 @@ MonoBehaviour:
   _freeCamMovementSpeed: 3
   _freecamSensitivity: 3
   _freeCamMaxYAngle: 80
+--- !u!114 &1026031665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1026031661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2803fa485d4002c43bdae50dfeb66b46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _map: {fileID: 1704606764}
 --- !u!1 &1077918156
 GameObject:
   m_ObjectHideFlags: 0

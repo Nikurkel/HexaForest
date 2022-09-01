@@ -4,16 +4,22 @@ using UnityEngine;
 
 public class LevelEditorInput : MonoBehaviour
 {
-    public Tilemap3D _map;
-    public GameObject _camHolder;
+    [SerializeField]
+    private Tilemap3D _map;
+    [SerializeField]
+    private GameObject _camHolder;
     private Camera _cam;
     private int _selectedTileID = 0;
     private int _maxTileID;
 
-    public bool _freeCam = false;
-    public float _freeCamMovementSpeed;
-    public float _freecamSensitivity = 3f;
-    public float _freeCamMaxYAngle = 80f;
+    [SerializeField]
+    private bool _freeCam = false;
+    [SerializeField]
+    private float _freeCamMovementSpeed;
+    [SerializeField]
+    private float _freecamSensitivity = 3f;
+    [SerializeField]
+    private float _freeCamMaxYAngle = 80f;
 
     Vector3 _freeCamInput;
 
@@ -21,11 +27,13 @@ public class LevelEditorInput : MonoBehaviour
     private bool _freeCamLockRotation;
 
     private Rigidbody _freeCamRB;
+    private TurnManager _turnManager;
 
     private void Awake() {
         _cam = _camHolder.GetComponentInChildren<Camera>();
-        _maxTileID = _map._tileStructs.Count;
+        _maxTileID = _map.GetTileStructsSize;
         _freeCamRB = _cam.gameObject.GetComponent<Rigidbody>();
+        _turnManager = GetComponent<TurnManager>();
     }
 
     private void Update() {
@@ -40,6 +48,7 @@ public class LevelEditorInput : MonoBehaviour
         }
         SelectTile();
         SaveMap();
+        EndTurn();
     }
 
     private void FixedUpdate() {
@@ -188,6 +197,12 @@ public class LevelEditorInput : MonoBehaviour
     private void SaveMap(){
         if(Input.GetKeyDown(KeyCode.Tab)){
             _map.SaveTileMap();
+        }
+    }
+
+    private void EndTurn(){
+        if(Input.GetKeyDown(KeyCode.Return)){
+            _turnManager.UpdateMap();
         }
     }
 }

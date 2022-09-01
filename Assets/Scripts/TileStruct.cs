@@ -4,9 +4,12 @@ using UnityEngine;
 
 [System.Serializable]
 public class TileStruct{
-    public string name;
-    public bool randomTile;
-    public List<GameObject> gameObjects;
+    [SerializeField]
+    private string name;
+    [SerializeField]
+    private bool randomTile;
+    [SerializeField]
+    private List<GameObject> gameObjects;
 
     public GameObject GetRandomTile(){
         if(randomTile){

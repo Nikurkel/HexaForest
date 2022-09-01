@@ -4,17 +4,20 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class Tilemap3D : MonoBehaviour {
-    private Tilemap _map;
+    private Tilemap _baseMap;
     private Tile3D[,,] _tile3DArray = new Tile3D[50,50,5];
+    public Vector3Int GetMapSize {get => new Vector3Int(_tile3DArray.GetLength(0), _tile3DArray.GetLength(1), _tile3DArray.GetLength(2));}
     private Vector3Int _offset = new Vector3Int(-25,-25,0);
     private BoundsInt _bounds;
-    public List<TileStruct> _tileStructs;
+    [SerializeField]
+    private List<TileStruct> _tileStructs;
+    public int GetTileStructsSize {get => _tileStructs.Count;}
     private GameObject _container;
     private LoadedGameData _loadedGameData;
-    public Tilemap GetBaseMap {get => _map;}
+    public Tilemap GetBaseMap {get => _baseMap;}
 
     private void Awake() {
-        _map = GetComponent<Tilemap>();
+        _baseMap = GetComponent<Tilemap>();
         _bounds = new BoundsInt(_offset.x,_offset.y,_offset.z,_tile3DArray.GetLength(0),_tile3DArray.GetLength(1),_tile3DArray.GetLength(2));
         _container = new GameObject("Tile Container");
         
@@ -55,22 +58,22 @@ public class Tilemap3D : MonoBehaviour {
         }
         int randomYRotation = Random.Range(0,6) * 60;
         //print(randomYRotation);
-        GameObject obj = Instantiate(_tileStructs[id].GetRandomTile(), _map.CellToLocal(gridPosition), new Quaternion(), _container.transform);
+        GameObject obj = Instantiate(_tileStructs[id].GetRandomTile(), _baseMap.CellToLocal(gridPosition), new Quaternion(), _container.transform);
         obj.transform.Rotate(new Vector3(0,randomYRotation,0), Space.World);
         _tile3DArray[index.x, index.y, index.z] = new Tile3D(obj, id);
     }
 
     // call PlaceTileOnIndex using cell index
     public void PlaceTileOnPosition(Vector3 pos, int id){
-        Vector3Int index = _map.LocalToCell(pos);
+        Vector3Int index = _baseMap.LocalToCell(pos);
         PlaceTileOnIndex(index, id);
     }
 
-    private Vector3Int OffsetArrayToGrid(Vector3Int arrayIndex){
+    public Vector3Int OffsetArrayToGrid(Vector3Int arrayIndex){
         return arrayIndex + _offset;
     }
 
-    private Vector3Int OffsetGridToArray(Vector3Int gridIndex){
+    public Vector3Int OffsetGridToArray(Vector3Int gridIndex){
         return gridIndex - _offset;
     }
 
@@ -80,7 +83,7 @@ public class Tilemap3D : MonoBehaviour {
             for (int y = 0; y < _tile3DArray.GetLength(1); y++){
                 for (int z = 0; z < _tile3DArray.GetLength(2); z++){
                     if(_tile3DArray[x,y,z].model != null){
-                        _tile3DArray[x,y,z].model.transform.position = _map.CellToLocal(OffsetArrayToGrid(new Vector3Int(x,y,z)));
+                        _tile3DArray[x,y,z].model.transform.position = _baseMap.CellToLocal(OffsetArrayToGrid(new Vector3Int(x,y,z)));
                     }
                 }
             }
