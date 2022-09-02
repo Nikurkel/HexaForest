@@ -394,6 +394,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _map: {fileID: 1704606764}
+  _cityGenProbability: 10
 --- !u!1 &1077918156
 GameObject:
   m_ObjectHideFlags: 0
@@ -555,6 +556,20 @@ MonoBehaviour:
     randomTile: 1
     gameObjects:
     - {fileID: 4102805252607874905, guid: 6f294e30bfb3c6e46830c9c520a57133, type: 3}
+  - name: man made
+    randomTile: 1
+    gameObjects:
+    - {fileID: 780552177667537013, guid: 2ddaba708b95dd9419e4704732f90a44, type: 3}
+    - {fileID: 1124761655389865946, guid: f23ad8a2502015c4a977cdcf81bf7989, type: 3}
+    - {fileID: 2041778651242404836, guid: f94fd51f69dc35143be36d75f05d7776, type: 3}
+    - {fileID: 8340406134346457353, guid: 10aded47e607c7c49a311295f6f5d2c2, type: 3}
+    - {fileID: 888199893285481752, guid: 118f9a9f1202bee43bae51ca08b9b26a, type: 3}
+    - {fileID: 3362471797817812134, guid: bde148fe3cc1f3e41b2a8c9fc2a02999, type: 3}
+    - {fileID: 5876400983975337173, guid: 1f38d723ed4881a46ace9593081e73f1, type: 3}
+    - {fileID: 6680892850974214480, guid: 7b6d75951b7e94e4f9bd8bd80e380da8, type: 3}
+    - {fileID: 1375588979588960106, guid: 4fd5858ce8473ce4eb32dd9666abaccf, type: 3}
+    - {fileID: 6700750071226080646, guid: afc7f4ed99b122742938a83ee8530f58, type: 3}
+    - {fileID: 3628930726157206567, guid: 880f9c1cb0466464e805b4e4004157e2, type: 3}
 --- !u!4 &812328840861386136
 Transform:
   m_ObjectHideFlags: 0
