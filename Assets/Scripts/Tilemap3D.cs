@@ -69,6 +69,11 @@ public class Tilemap3D : MonoBehaviour {
         PlaceTileOnIndex(index, id);
     }
 
+    // make grid positions public
+    public Vector3 GetCellPosition(Vector3 pos){
+        return _baseMap.CellToLocal(_baseMap.LocalToCell(pos));
+    }
+
     public Vector3Int OffsetArrayToGrid(Vector3Int arrayIndex){
         return arrayIndex + _offset;
     }

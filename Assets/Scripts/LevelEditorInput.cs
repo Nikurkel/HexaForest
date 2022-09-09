@@ -28,12 +28,23 @@ public class LevelEditorInput : MonoBehaviour
 
     private Rigidbody _freeCamRB;
     private TurnManager _turnManager;
+    [SerializeField]
+    private GameObject _highlightTile;
+    private GameObject _highlightObject;
 
     private void Awake() {
         _cam = _camHolder.GetComponentInChildren<Camera>();
         _maxTileID = _map.GetTileStructsSize;
         _freeCamRB = _cam.gameObject.GetComponent<Rigidbody>();
         _turnManager = GetComponent<TurnManager>();
+    }
+
+    private void OnEnable() {
+        _highlightObject = Instantiate(_highlightTile, new Vector3(0,0,0), new Quaternion());
+    }
+
+    private void OnDisable(){
+        Destroy(_highlightObject);
     }
 
     private void Update() {
@@ -46,6 +57,7 @@ public class LevelEditorInput : MonoBehaviour
             RotateCam();
             MoveCamera();
         }
+        Highlight();
         SelectTile();
         SaveMap();
         EndTurn();
@@ -182,6 +194,7 @@ public class LevelEditorInput : MonoBehaviour
         _freeCamRB.velocity = desiredMoveDirection * _freeCamMovementSpeed;
     }
 
+    // change tile to place
     private void SelectTile(){
         if(Input.GetKeyDown(KeyCode.Period)){
             _selectedTileID = (int)Mathf.Repeat(_selectedTileID + 1, _maxTileID);
@@ -192,6 +205,17 @@ public class LevelEditorInput : MonoBehaviour
 
         _selectedTileID = (int)Mathf.Repeat(_selectedTileID + Input.mouseScrollDelta.y, _maxTileID);
         
+    }
+
+    // highlight current hovered position for orientation on grid
+    private void Highlight(){
+        RaycastHit hit;
+        Ray ray = _cam.ScreenPointToRay(Input.mousePosition);
+        
+        if (Physics.Raycast(ray, out hit)) {
+            Transform objectHit = hit.transform;
+            _highlightObject.transform.position = _map.GetCellPosition(objectHit.position);
+        }
     }
 
     private void SaveMap(){

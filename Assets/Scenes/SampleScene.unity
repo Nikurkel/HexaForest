@@ -349,6 +349,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _map: {fileID: 1704606764}
   _camHolder: {fileID: 1077918156}
+  _highlightTile: {fileID: 5783369635945733221, guid: 79e658d1221af0c4ba6fbe35fbab90b8, type: 3}
 --- !u!4 &1026031663
 Transform:
   m_ObjectHideFlags: 0
@@ -381,6 +382,7 @@ MonoBehaviour:
   _freeCamMovementSpeed: 3
   _freecamSensitivity: 3
   _freeCamMaxYAngle: 80
+  _highlightTile: {fileID: 5783369635945733221, guid: 79e658d1221af0c4ba6fbe35fbab90b8, type: 3}
 --- !u!114 &1026031665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -540,6 +542,7 @@ MonoBehaviour:
     randomTile: 1
     gameObjects:
     - {fileID: 2459684347165136487, guid: c603341e9f55eb544a0534ace325f476, type: 3}
+    - {fileID: 876624311955847819, guid: 6747f0e6ae7219346934fcfb67bbbb80, type: 3}
   - name: stone
     randomTile: 1
     gameObjects:

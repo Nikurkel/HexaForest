@@ -11,14 +11,26 @@ public class PlayerInput : MonoBehaviour
     private GameObject _camHolder;
     private Camera _cam;
     private TurnManager _turnManager;
+    [SerializeField]
+    private GameObject _highlightTile;
+    private GameObject _highlightObject;
 
     private void Awake() {
         _cam = _camHolder.GetComponentInChildren<Camera>();
         _turnManager = GetComponent<TurnManager>();
     }
 
+    private void OnEnable() {
+        _highlightObject = Instantiate(_highlightTile, new Vector3(0,0,0), new Quaternion());
+    }
+
+    private void OnDisable(){
+        Destroy(_highlightObject);
+    }
+
     private void Update() {
         PlaceTile();
+        Highlight();
         RotateCam();
         EndTurn();
     }
@@ -42,6 +54,16 @@ public class PlayerInput : MonoBehaviour
         }
         if(Input.GetKey(KeyCode.D)){
             _camHolder.transform.Rotate(new Vector3(0,-45 * Time.deltaTime,0));
+        }
+    }
+
+    private void Highlight(){
+        RaycastHit hit;
+        Ray ray = _cam.ScreenPointToRay(Input.mousePosition);
+        
+        if (Physics.Raycast(ray, out hit)) {
+            Transform objectHit = hit.transform;
+            _highlightObject.transform.position = _map.GetCellPosition(objectHit.position);
         }
     }
 
